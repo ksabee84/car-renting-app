@@ -1,0 +1,36 @@
+.landingPageBaseDiv {
+    margin: auto;
+    padding: 20px;
+    height: 97vh;
+    box-sizing: border-box;
+}
+
+.landingPageBaseDiv > .landingPageCard {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background-color: #6b9ffa;
+}
+
+.landingPageBaseDiv > .landingPageCard > .landingPageImg {
+    max-width: 800px;
+}
+
+.landingPageBaseDiv > .landingPageCard > .landingPageCardContent > .title {
+   font-variant-caps: small-caps;
+   font-weight: bolder;
+}
+
+.landingPageBaseDiv > .landingPageCard > .landingPageCardContent > .lead {
+    font-variant: small-caps;
+ }
+.landingPageBaseDiv > .landingPageCard > .landingPageCardActions > .linkButton {
+    margin-bottom: 10px;
+}
+
+.landingPageBaseDiv > .landingPageCard > .landingPageCardActions > .linkButton > .link {
+    text-decoration-line: none;
+    font-weight: 700;
+}

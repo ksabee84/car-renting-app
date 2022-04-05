@@ -1,0 +1,44 @@
+.carRenting {
+    max-width: 1280px;
+    height: 100vh;
+    margin: auto;
+    background-color: #9fceff;
+    text-align: center;
+}
+
+.carRenting > .buttonGroupContainer {
+    text-align: center;
+}
+
+.carRenting > .buttonGroupContainer > .buttonGroup > .linkButton > .link {
+    text-decoration-line: none;
+    font-size: 1.25rem;
+}
+
+.carRenting > .welcomeTextContainer {
+    text-align: center;
+    max-width: 800px;
+}
+
+.carRenting > .welcomeTextContainer > .buttonToCars {
+    margin-bottom: 50px;
+}
+
+.carRenting > .welcomeTextContainer > .welcomeText {
+    font-variant: small-caps;
+    line-height: 1rem;
+    text-align: center;
+}
+
+.carRenting > .welcomeTextContainer > .welcomeText > .header {
+    margin-bottom: 50px;
+}
+
+.carRenting > .welcomeTextContainer > .welcomeText > .text {
+    line-height: 30px;
+}
+
+.carRenting > .buttonToCars > .linkToCars {
+    text-decoration-line: none;
+    font-size: 1.25rem;
+}

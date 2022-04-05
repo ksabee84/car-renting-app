@@ -1,0 +1,39 @@
+.carsPage {
+    max-width: 1300px;
+    margin: auto;
+    background-color: #9fceff;
+}
+
+.carsPage > .buttonGroupContainer {
+    text-align: center;
+}
+
+.carsPage > .buttonGroupContainer > .buttonGroup > .linkButton > .link {
+    text-decoration-line: none;
+    font-size: 1.25rem;
+}
+
+.carsPage > .carsDiv {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.carsPage > .carsDiv > .card {
+    margin: 10px 10px 0 10px;
+    max-width: 350px;
+    margin-bottom: 10px;
+}
+
+.carsPage > .carsDiv > .card > .carsCardActions {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+.carsPage > .carsDiv > .card > .carsCardActions > .carsButton > .linkToRegister{
+    text-decoration-line: none;
+}
