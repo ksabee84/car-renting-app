@@ -1,0 +1,7 @@
+.adminDiv {
+    text-align: center;
+}
+
+.adminDiv > .showCarsButton {
+    margin: 10px;
+}

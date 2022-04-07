@@ -6,9 +6,13 @@
     background-color: #9fceff;
 }
 
+.contactsDiv > .contactsText {
+    margin-top: 50px;
+}
+
 .contactsDiv > .buttonGroupContainer > .buttonGroup > .linkButton > .link {
     text-decoration-line: none;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
 }
 
 .contactsDiv > .contactLinks {

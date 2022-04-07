@@ -10,7 +10,7 @@ const Contacts = () => {
     return(
         <Container className='contactsDiv'>
             <CarRentingMenuElement />
-            <h1>Contact us using the following platforms!</h1>
+            <h1 className="contactsText">Contact us using the following platforms!</h1>
             <div className='contactLinks'>
 
                 <Button className='contactButton'
@@ -30,7 +30,7 @@ const Contacts = () => {
                 <Button className='contactButton'
                     size='large'
                     variant='outlined'>
-                    <Link mailTo='carrenting@gmail.com' underline='none'>
+                    <Link mailto='mailto:carrenting@gmail.com' underline='none'>
                         Write an e-mail
                     </Link>
                 </Button>

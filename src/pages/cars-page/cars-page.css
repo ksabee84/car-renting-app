@@ -10,7 +10,12 @@
 
 .carsPage > .buttonGroupContainer > .buttonGroup > .linkButton > .link {
     text-decoration-line: none;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
+}
+
+.carsPage > .buttonToAdmin > .linkToAdmin {
+    text-decoration-line: none;
+    font-size: 1.1rem;
 }
 
 .carsPage > .carsDiv {

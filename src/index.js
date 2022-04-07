@@ -6,6 +6,7 @@ import CarRenting from './pages/car-renting/CarRenting';
 import RentingDetails from "./pages/renting-details/RentingDetails";
 import CarsPage from './pages/cars-page/CarsPage';
 import Contacts from './pages/contacts/Contacts';
+import AdminInterface from "./pages/admin/Admin";
 
 const setBackgroundForWebsite = () => {
   const element = document.getElementById('root');
@@ -26,6 +27,7 @@ ReactDOM.render(
               <Route path='/car-renting' element={<CarRenting />} />
               <Route path='/cars-page' element={<CarsPage />}  />
               <Route path='/renting-details' element={<RentingDetails/>} />
+              <Route path='/admin' element={<AdminInterface/>} />
               <Route path='/contacts' element={<Contacts />} />
           </Routes>
       </BrowserRouter>

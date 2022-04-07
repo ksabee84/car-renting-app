@@ -11,12 +11,29 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+// import axios from 'axios';
 
 
 const RentingCardElement = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [rentableCarsData, setRentableCarsData] = useState([]);
   
+  let rentableCars = [];
+
+  const fetchCars = () => {
+        fetch('http://localhost:8080/api/v1/car-renting/cars')
+        .then((result) => result.json())
+        .then((data) => console.log('data', data))
+        .catch((error) => {
+            console.log('error message', error);
+        });
+        
+
+      // axios.get('http://localhost:8080/api/v1/car-renting/cars').then((result) => console.log('result', result));
+  };
+
+  setTimeout(() => console.log('cars', rentableCars), 5000);
+
   useEffect(() => { 
     const rentableCars = [
     {
