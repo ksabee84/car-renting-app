@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import CarRentingMenuElement from "../../components/CarRentingMenuElement";
+import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import EditableTable from '../../components/EditableTable';
 import './admin.css';
+// import { response } from "express";
 // import Box from '@mui/material/Box';
 // import RentingCardElement from '../../components/RentingCardElement';
 // import List from '@mui/material/List';
 // import { ListItemButton, ListItemText } from "@mui/material";
-
 
 /*
         <Box sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
@@ -41,7 +43,7 @@ const AdminInterface = () => {
         .then((result) => result.json())
         .then((data) => setRentableCars(data))
         .catch((error) => {
-            console.log('error message', error);
+            console.log('Data cannot be loaded :', error);
         });
         
     };
@@ -60,25 +62,81 @@ const AdminInterface = () => {
             });
     };
 
+    /*
+    const updateCar = async (body, id) => {
+        const response = await fetch(`http://localhost:8080/api/v1/car-renting/cars/${id}`), {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body),
+        });
+    }
+    */
+
+
+    const addNewCar = () => {
+
+    };
+
     const handleItemClick = (event, index) => {
         car(index);
     }
 
+    const editSaved = (valueChange) => {
+        const rentableCarsKeys = Object.keys(rentableCars);
+        let requestBody;
+
+        if(valueChange.row) {
+            requestBody = valueChange.row;
+        } else {
+            if(rentableCarsKeys.includes(valueChange.field)) {
+                requestBody = {
+                    [valueChange.field]: valueChange.value,
+                };
+            }
+        }
+    }
+    
     return(
         <div className='adminDiv'>
-            <Button
-                className='showCarsButton'
-                size='large'
-                variant='contained'
-                onClick={fetchCars}>
-                    Show All Cars
-            </Button>
-            <EditableTable rows={rentableCars}/>
-            <Button>
+            <CarRentingMenuElement />
+            
+            <Container className='buttonsContainer'>
+                <Button
+                    className='carDataButtons'
+                    size='big'
+                    variant='contained'
+                    onClick={fetchCars}>
+                        Show All Cars
+                </Button>
+                <Button
+                    className='carDataButtons'
+                    size='big'
+                    variant='contained'
+                    >
+                        Delete Car
+                </Button>
+                <Button
+                    className='carDataButtons'
+                    size='big'
+                    variant='contained'
+                    onClick={addNewCar}
+                    >
+                        Add New Car
+                </Button>
+                <Button
+                    className='carDataButtons'
+                    size='big'
+                    variant='contained'
+                    onClick={editSaved}
+                    >
+                        Save Car Data
+                </Button>
+            </Container>
 
-            </Button>
-        
-           
+            <EditableTable rows={rentableCars} edit={editSaved} />
+            
         </div>
     );
 };

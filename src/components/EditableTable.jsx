@@ -1,9 +1,10 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
-const EditableTable = ( {rows} ) => (
-    <div style={ { height: 300, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} />
+const EditableTable = ( {rows, edit} ) => (
+    <div style={ { height: 500, width: '100%' }}>
+        <DataGrid rows={rows} columns={columns} onCellEditCommit={edit}
+            />
     </div>
 );
 
@@ -15,8 +16,8 @@ const EditableTable = ( {rows} ) => (
         { field: 'color', headerName: 'Color', type: 'string', width: 100, editable: true },
         { field: 'engine', headerName: 'Engine', type: 'string', width: 200, editable: true },
         { field: 'VIN', headerName: 'VIN', type: 'string', width: 200, editable: true },
-        { field: 'isRented', headerName: 'Is it rented?', type: 'boolean', width: 100, editable: true },
-        { field: 'rentingPrice', headerName: 'Renting price', type: 'number', width: 100, editable: true },
+        { field: 'isRented', headerName: 'Is it rented?', type: 'boolean', width: 150, editable: true },
+        { field: 'rentingPrice', headerName: 'Renting price (€)', type: 'number', width: 150, editable: true },
     ];
 
 

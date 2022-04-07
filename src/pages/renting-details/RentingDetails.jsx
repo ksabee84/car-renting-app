@@ -3,6 +3,7 @@ import CarRentingMenuElement from '../../components/CarRentingMenuElement';
 import StepperElement from '../../components/StepperElement';
 import RegistrationFormElement from '../../components/RegistrationFormElement';
 import './renting-details.css';
+import CarSelectElement from '../../components/CarSelectElement';
 
 const RentingDetails = () => {
 
@@ -15,6 +16,7 @@ const RentingDetails = () => {
             <div className='registrationForm'>
                 <RegistrationFormElement />
             </div>
+            <CarSelectElement />
         </div>
     );
 }

@@ -11,7 +11,7 @@ const CarsPage = () => {
     return (
         <Container className="carsPage">
             <CarRentingMenuElement />
-            <Button class='buttonToAdmin'
+            <Button className='buttonToAdmin'
                 size='small'
                 variant='outlined'
             >

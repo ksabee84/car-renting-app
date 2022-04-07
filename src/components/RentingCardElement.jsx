@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -13,27 +13,27 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // import axios from 'axios';
 
-
 const RentingCardElement = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [rentableCarsData, setRentableCarsData] = useState([]);
-  
-  let rentableCars = [];
 
   const fetchCars = () => {
         fetch('http://localhost:8080/api/v1/car-renting/cars')
         .then((result) => result.json())
-        .then((data) => console.log('data', data))
+        .then((data) => setRentableCarsData(data))
         .catch((error) => {
-            console.log('error message', error);
+            console.log('Data cannot be loaded: ', error);
         });
         
-
       // axios.get('http://localhost:8080/api/v1/car-renting/cars').then((result) => console.log('result', result));
   };
 
-  setTimeout(() => console.log('cars', rentableCars), 5000);
+  fetchCars();
 
+  // setTimeout(() => console.log('cars', rentableCars), 5000);
+
+  /*
+  
   useEffect(() => { 
     const rentableCars = [
     {
@@ -125,6 +125,8 @@ const RentingCardElement = () => {
     setRentableCarsData(rentableCars);
   }, [])
 
+  */
+
   const handleItemClick = (event, index) => {
       setSelectedIndex(index);
       console.log(car.id);
@@ -133,7 +135,6 @@ const RentingCardElement = () => {
   const car = (id) => (
       rentableCarsData.find((car) => car.id === id)
   );
-
 
     return (
         <div className="carsDiv">

@@ -73,7 +73,7 @@ const rentableCars = [
         color: 'grey',
         engine: 'inline-4, 1779cc, 116hp',
         VIN: 'AR147233',
-        isRented: false,
+        isRented: true,
         imgText: `Buongiorno! Wanna have a retro Italian feeling? Try this real classic '69 Alfa!`,
         imgUrl: '/img/alfaspider.jpg',
         imgAlt: 'A grey Alfa Romeo 1750 Spider car',
@@ -87,7 +87,7 @@ const rentableCars = [
         color: 'green',
         engine: 'inline-2, 594cc, 26hp',
         VIN: 'SNTN411STL9123456',
-        isRented: true,
+        isRented: false,
         imgText: `Retro experience from the former Eastern Bloc. Try this two-stroke legend, a common partner of the '70s & '80s!`,
         imgUrl: '/img/trabant601.JPG',
         imgAlt: 'A green Trabant 601 car',
@@ -142,7 +142,7 @@ app.put(`${apiBaseUrl}/cars/:id`, (req, res) => {
     const { car, index } = checkDetailsOfRequest({ req, res, newCar: false });
 
     rentableCars[index] = {
-        ...car,
+        ...rentableCars[index],
         ...req.body,
     };
    

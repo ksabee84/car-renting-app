@@ -2,6 +2,15 @@
     text-align: center;
 }
 
-.adminDiv > .showCarsButton {
+.adminDiv > .buttonGroupContainer {
+    align-items: center;
+}
+
+.adminDiv > .buttonGroupContainer > .buttonGroup > .linkButton > .link {
+    text-decoration-line: none;
+    font-size: 1.1rem;
+}
+
+.adminDiv > .buttonsContainer > .carDataButtons {
     margin: 10px;
 }
