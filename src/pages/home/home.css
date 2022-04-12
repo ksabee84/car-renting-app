@@ -33,4 +33,5 @@
 .landingPageBaseDiv > .landingPageCard > .landingPageCardActions > .linkButton > .link {
     text-decoration-line: none;
     font-weight: 700;
+    color: blue;
 }

@@ -11,6 +11,7 @@
 .carsPage > .buttonGroupContainer > .buttonGroup > .linkButton > .link {
     text-decoration-line: none;
     font-size: 1.1rem;
+    color:blue;
 }
 
 .carsPage > .buttonToAdmin > .linkToAdmin {
@@ -41,4 +42,5 @@
 
 .carsPage > .carsDiv > .card > .carsCardActions > .carsButton > .linkToRegister{
     text-decoration-line: none;
+    color: blue;
 }

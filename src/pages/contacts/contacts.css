@@ -8,11 +8,13 @@
 
 .contactsDiv > .contactsText {
     margin-top: 50px;
+    font-variant-caps: small-caps;
 }
 
 .contactsDiv > .buttonGroupContainer > .buttonGroup > .linkButton > .link {
     text-decoration-line: none;
     font-size: 1.1rem;
+    color: blue;
 }
 
 .contactsDiv > .contactLinks {
@@ -25,4 +27,5 @@
 
 .contactsDiv > .contactLinks > .contactButton {
     margin-top: 50px;
+    font-weight: bold;
 }

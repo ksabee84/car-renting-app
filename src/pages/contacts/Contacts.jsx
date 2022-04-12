@@ -1,6 +1,7 @@
 import React from "react";
 import Container from '@mui/material/Container';
 import CarRentingMenuElement from "../../components/CarRentingMenuElement";
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import './contacts.css';
@@ -10,9 +11,12 @@ const Contacts = () => {
     return(
         <Container className='contactsDiv'>
             <CarRentingMenuElement />
-            <h1 className="contactsText">Contact us using the following platforms!</h1>
-            <div className='contactLinks'>
 
+            <Typography variant='h4' color='text.secondary' component='div' className='contactsText'>
+                Contact us using the following platforms!
+            </Typography>
+
+            <div className='contactLinks'>
                 <Button className='contactButton'
                     size='large'
                     variant='outlined'>

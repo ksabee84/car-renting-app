@@ -6,8 +6,6 @@ app.use(cors());
 
 const appPort = 8080;
 
-const apiBaseUrl = '/api/v1/car-renting';
-
 const rentableCars = [
     {
         id: 1,
@@ -96,24 +94,24 @@ const rentableCars = [
 
 ];
 
-app.get(`${apiBaseUrl}/port`, (req, res) => {
-    res.send(`App is running on this port: ${appPort}`);
+app.get('/api/v1/car-renting/port', (req, res) => {
+    res.status(200).send(`App is running on this port: ${appPort}`);
 });
 
 // összes autó lekérése:
-app.get(`${apiBaseUrl}/cars`, (req, res) => {
+app.get('/api/v1/car-renting/cars', (req, res) => {
     // checkDetailsOfRequest({ req, res });
 
     res.status(200).send(rentableCars);
 });
 
 // bérelhető autók lekérése:
-app.get(`${apiBaseUrl}/cars/rentable`, (req, res) => {
+app.get('/api/v1/car-renting/cars/rentable', (req, res) => {
     res.status(200).send(rentableCars.filter((car) => !car.isRented));
 });
 
 // autó lekérése id alapján:
-app.get(`${apiBaseUrl}/cars/:id`, (req, res) => {
+app.get('/api/v1/car-renting/cars/:id', (req, res) => {
     const car = rentableCars.find((car) => car.id === parseInt(req.params.id));
     car
     ? res.status(200).send(car)
@@ -124,7 +122,7 @@ app.get(`${apiBaseUrl}/cars/:id`, (req, res) => {
 });
 
 // autó hozzáadása:
-app.post(`${apiBaseUrl}/cars`, (req, res) => {
+app.post('/api/v1/car-renting/cars', (req, res) => {
     checkDetailsOfRequest({ req, res, newCar: true });
 
     const newCar = {
@@ -138,19 +136,38 @@ app.post(`${apiBaseUrl}/cars`, (req, res) => {
 });
 
 // autó módosítása (nem akarja kiválasztani)
-app.put(`${apiBaseUrl}/cars/:id`, (req, res) => {
+app.put('/api/v1/car-renting/cars/:id', (req, res) => {
+    // checkDetailsOfRequest({ req, res });
+    // const index = getCar({ id: req.params.id });
+
     const { car, index } = checkDetailsOfRequest({ req, res, newCar: false });
 
     rentableCars[index] = {
-        ...rentableCars[index],
+        ...car,
         ...req.body,
     };
    
     res.status(200).send('Car was updated successfully!');
 });
 
+// autó törlése (nem akarja kiválasztani)
+app.delete('/api/v1/car-renting/cars/:id', (req, res) => {
+    console.log('backend: ', req.params.id)
+
+    // checkDetailsOfRequest({ req, res });
+    // const index = getCar({ id: req.params.id })
+
+    const { index } = checkDetailsOfRequest({ req, res, newCar: false });
+
+    console.log('check details passed');
+
+    rentableCars.splice(index, 1);
+    
+    res.status(200).send(`Car with id ${req.params.id} was deleted successfully!`);
+});
+
 // keresés típus alapján (még nincs kipróbálva)
-app.get(`${apiBaseUrl}/cars/search`, (req, res) => {
+app.get('/api/v1/car-renting/cars/search', (req, res) => {
     const queryKey = Object.keys(req.query);
     checkDetailsOfRequest({ req, res });
 
@@ -160,18 +177,6 @@ app.get(`${apiBaseUrl}/cars/search`, (req, res) => {
 
     res.status(200).send(searchResult);
 });
-
-// autó törlése (nem műkszik)
-app.delete(`${apiBaseUrl}/cars/:id`, (req, res) => {
-    const car = rentableCars.find((car) => car.id === req.params.id);
-
-    const { index } = checkDetailsOfRequest({ req, res, newCar: false });
-
-    rentableCars.splice(index, 1);
-    
-    res.status(200).send(`Car with id ${req.params.id} was deleted successfully!`);
-});
-
 
 const checkDetailsOfRequest = ({ req, res, newCar }) => {
     const car = rentableCars.find((car) => car.id === req.params.id);
@@ -189,6 +194,13 @@ const checkDetailsOfRequest = ({ req, res, newCar }) => {
     
     return { car, index };
 };
+
+/*
+function getCar({ id }) {
+    const car = rentableCars.find((car) => car.id === parseInt(id));
+    return rentableCars.indexOf(car);
+}
+*/
 
 function isSearchKeyCorrect({ searchKey }) {
     const correctValue = "name";

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CarRentingMenuElement from "../../components/CarRentingMenuElement";
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import EditableTable from '../../components/EditableTable';
 import './admin.css';
-// import { response } from "express";
 // import Box from '@mui/material/Box';
 // import RentingCardElement from '../../components/RentingCardElement';
 // import List from '@mui/material/List';
@@ -37,6 +36,16 @@ const AdminInterface = () => {
     const [rentableCars, setRentableCars] = useState([]);
     const [selectedCar, setSelectedCar] = useState({});
     const [selectedIndex, setSelectedIndex] = useState();
+    const [container, setContainer] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
+    const customEventType = 'errorOccured';
+
+    useEffect(() => {
+        setContainer(document.getElementById('editableTable'));
+        container && container.addEventListener(customEventType, (e) => {
+            setErrorMessage(e.detail.errorMessage);
+        }, {});
+    }, [container]);
 
     const fetchCars = () => {
         fetch('http://localhost:8080/api/v1/car-renting/cars')
@@ -50,52 +59,79 @@ const AdminInterface = () => {
 
    //  setTimeout(() => console.log('itt kijön a tömb: ', rentableCars), 1000);
 
-    const car = (id) => {
+    const getCarById = (id) => {
         fetch(`http://localhost:8080/api/v1/car-renting/cars/${id}`)
-            .then((result) => result.status === 200 ? result.json() : console.log('Error'))
+            .then((result) => result.status === 200 ? result.json() : result.text())
             .then((data) => {
+                const result = !typeof data === 'object' && JSON.parse(data);
+                if(result.message) {
+                    container.dispatchEvent(
+                        new CustomEvent(customEventType, { detail: {
+                            errorMessage: result.message,
+                            wasSuccess: false,
+                        }}));
+                } else {
                 setSelectedCar(data);
-                setSelectedIndex(selectedCar.id);
-            })
+            }
+        })
             .catch((error) => {
                 console.log('error message', error);
             });
     };
 
-    /*
-    const updateCar = async (body, id) => {
-        const response = await fetch(`http://localhost:8080/api/v1/car-renting/cars/${id}`), {
+
+    const updateCarData = async (body, id) => {
+        const response = await fetch(`http://localhost:8080/api/v1/car-renting/cars/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(body),
         });
-    }
-    */
+    };
+    
+    const deleteCar = async (carId) => {
+        const response = await fetch(`http://localhost:8080/api/v1/car-renting/cars/${carId}`, {
+            method: 'DELETE',
+            });
+
+        if(response.status === '200') {
+            const car = rentableCars.find((car) => car.id === carId);
+            const index = rentableCars.indexOf(rentableCars);
+            const newCarArray = rentableCars.splice(index, 0);
+            setRentableCars(newCarArray);
+        }
+    };
 
 
     const addNewCar = () => {
 
     };
 
-    const handleItemClick = (event, index) => {
-        car(index);
+    const handleItemClick = (index) => {
+        getCarById(index);
+    }
+
+    const detailedRendering = () => {
+        if(selectedCar) {
+            return (
+                <EditableTable
+                rows={(rentableCars)}
+                edit={editSaved}
+                deleteElement={(e, params) => deleteCar(params.id)} />)
+        }
     }
 
     const editSaved = (valueChange) => {
         const rentableCarsKeys = Object.keys(rentableCars);
-        let requestBody;
-
-        if(valueChange.row) {
-            requestBody = valueChange.row;
-        } else {
-            if(rentableCarsKeys.includes(valueChange.field)) {
-                requestBody = {
-                    [valueChange.field]: valueChange.value,
-                };
-            }
-        }
+        
+        const requestBody = {
+            [valueChange.field]: valueChange.value,
+        };
+        updateCarData(requestBody, valueChange.id);
+        
+        console.log('clicked', valueChange.id, valueChange.value);
+        console.log('enter', valueChange.field, valueChange.value);
     }
     
     return(
@@ -135,7 +171,11 @@ const AdminInterface = () => {
                 </Button>
             </Container>
 
-            <EditableTable rows={rentableCars} edit={editSaved} />
+            <EditableTable
+                rows={rentableCars}
+                edit={editSaved}
+                deleteElement={(e, params) => console.log('params id: ', params.id)}
+                id='editableTable'/>
             
         </div>
     );
