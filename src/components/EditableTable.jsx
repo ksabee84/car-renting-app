@@ -1,25 +1,40 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+
 import Button from '@mui/material/Button';
 
-const EditableTable = ( {rows, edit, deleteElement } ) => (
-    <div style={ { height: 500, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns(deleteElement)} onCellEditCommit={edit}
-            />
-    </div>
-);
+const EditableTable = ({ rows, edit, deleteElement } ) => 
+    (
+        <div style={ { height: 500, width: '100%' }}>
+            <DataGrid rows={rows} columns={columns(deleteElement)} onCellEditCommit={edit}
+                />
+        </div>
+    );
+/*
+    const [rows, setRows] = useState(columns);
+
+    const deleteCar = useCallback(
+        (id) => () => {
+          setTimeout(() => {
+            setRows((prevRows) => prevRows.filter((row) => row.id !== id));
+          });
+        },
+        [],
+      );
+    */
 
     const columns = (deleteElement) => {
         return [
-            { field: 'id', headerName: 'Id', headerAlign: 'left', width: 50, editable: false },
-            { field: 'carName', headerName: 'Car Model', type: 'string', width: 200, editable: true },
-            { field: 'carBrandAndModel', headerName: 'Car Brand and Model', type: 'number', width: 300, editable: true },
+            { field: 'id', headerName: 'Id', width: 50, editable: false },
+            { field: 'carName', headerName: 'Car Model', width: 200, editable: true },
+            { field: 'carBrandAndModel', headerName: 'Car Brand and Model', width: 300, editable: true },
             { field: 'modelYear', headerName: 'Model Year', type: 'number', width: 100, editable: true },
-            { field: 'color', headerName: 'Color', type: 'string', width: 100, editable: true },
-            { field: 'engine', headerName: 'Engine', type: 'string', width: 200, editable: true },
-            { field: 'VIN', headerName: 'VIN', type: 'string', width: 200, editable: true },
+            { field: 'color', headerName: 'Color', width: 100, editable: true },
+            { field: 'engine', headerName: 'Engine', width: 200, editable: true },
+            { field: 'VIN', headerName: 'VIN', width: 180, editable: true },
             { field: 'isRented', headerName: 'Rented', type: 'boolean', width: 100, editable: true },
             { field: 'rentingPrice', headerName: 'Renting Price (€)', type: 'number', width: 100, editable: true },
+            { field: 'imgUrl', headerName: 'Upload Image', width: 100, editable: true },
             { field: 'delete', headerName: 'Delete',
                 renderCell: (params) => (
                 <strong>
@@ -38,4 +53,5 @@ const EditableTable = ( {rows, edit, deleteElement } ) => (
             },
         ]  ;
     }
+
 export default EditableTable;

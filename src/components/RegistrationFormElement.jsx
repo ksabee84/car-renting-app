@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
+import CarSelectElement from './CarSelectElement';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import RegisterSuccess from '../components/RegisterSuccess';
 
 const RegistrationFormElement = () => {
 
@@ -8,6 +11,8 @@ const RegistrationFormElement = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [formValue, setFormValue] = useState();
 
     const onNameValueChange = (e) => {
         setName(e.target.value);
@@ -29,48 +34,46 @@ const RegistrationFormElement = () => {
         console.log(password);
     };
 
-    const lowerCaseChars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-    const upperCaseChars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-    const specialChars = ['*','/','-', '+', '#', '@', '$', '%', '^', '(', ')', '_', '='];
-    const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-   
-    const checkRules = (passwordArray, charArray) => {
-        // if(passwordArray.find(char) => charArray.includes(char) ) {}
-
-        
+    const onPhoneNumberChange = (e) => {
+        setPhoneNumber(e.target.value);
+        console.log(phoneNumber);
     };
 
-/*
+    const lowerCaseChars = /[a-z]/g ;
+    const upperCaseChars = /[A-Z]/g;
+    const numbers = /[0-9]/g;
+
     const checkValues = () => {
-        var formValue = true;
-
-        if(!email.includes('@', '.')) {
-            formValue = false;
-            alert('Enter a valid e-mail address!');
-        };
         
-        if(password.length < 8) {
-            formValue = false;
-            alert('Password must be at least 8 characters long!');
-        };
 
-        if(password.length > 30) {
-            formValue = false;
-            alert('Password cannot be longer than 30 characters!');
-        };
-
-        if(!password.includes(lowerCaseChars, upperCaseChars, specialChars, numbers)) {
-            formValue = false;
-            alert('Password must contain at least one lower case, one upper case, on special character and one number!');
-        };
-        
+            if(!email.includes('@', '.')) {
+                formValue = false;
+                alert('Enter a valid e-mail address!');
+            } else if(password.length < 8) {
+                formValue = false;
+                alert('Password must be at least 8 characters long!');
+            } else if(password.length > 30) {
+                formValue = false;
+                alert('Password cannot be longer than 30 characters!');
+            } else if(!password.match(lowerCaseChars, upperCaseChars, numbers)) {
+                formValue = false;
+                alert('Password must contain at least one lower case and one upper case letter, and one number!');
+            } else if(!phoneNumber.match(numbers, '-', '+')) {
+                formValue = false;
+                alert(`Phone number must contain numbers, and may contain '+' or '-' characters!`);
+            } else {
+                console.log('checked');
+                return (
+                    <div>
+                        <RegisterSuccess />
+                    </div>
+                )
+            }
     };
 
-
-    checkValues();
-*/
     return(
-        <Box className='formBox'
+        <>
+            <Box className='formBox'
                 component="form"
                 sx={{
                     '& .MuiTextField-root': { m: 1, width: '50ch' },
@@ -78,15 +81,15 @@ const RegistrationFormElement = () => {
                 noValidate
                 autoComplete="off"
                 >
-                <div>
+        <div>
+            <CarSelectElement />
+        </div>
                     <TextField
                         required
                         id="demo-helper-text-misaligned-no-helper"
                         label="Please enter your name"
                         onChange={ onNameValueChange }
                     />
-                </div>
-                <div>
                     <TextField className='userName'
                         required
                         id="demo-helper-text-misaligned-no-helper"
@@ -94,8 +97,6 @@ const RegistrationFormElement = () => {
                         helperText=""
                         onChange={ onUsernameValueChange }
                     />
-                </div>
-                <div>
                     <TextField
                         required
                         id="demo-helper-text-misaligned-no-helper"
@@ -103,8 +104,6 @@ const RegistrationFormElement = () => {
                         helperText=""
                         onChange={ onEmailValueChange }
                     />
-                </div>
-                <div>
                     <TextField
                         required
                         type="password"
@@ -114,10 +113,25 @@ const RegistrationFormElement = () => {
                         autoComplete="current-password"
                         onChange={ onPasswordChange }
                     />
+                    <TextField
+                        required
+                        id="demo-helper-text-misaligned-no-helper"
+                        label="Please enter your phone number"
+                        helperText=""
+                        onChange={ onPhoneNumberChange }
+                    />
+                <div>
+                    <Button
+                        size='large'
+                        variant='contained'
+                        onClick={ checkValues }>
+                            Register and Rent
+                    </Button>
                 </div>
+                    { formValue && <RegisterSuccess /> }
             </Box>
+        </>
     )
-
 }
 
 export default RegistrationFormElement;

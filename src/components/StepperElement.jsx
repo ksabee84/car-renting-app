@@ -5,8 +5,6 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import RegistrationFormElement from './RegistrationFormElement';
-import CarSelectElement from './CarSelectElement';
 
 const steps = ['Register', 'Select the car', 'Wait for our call'];
 

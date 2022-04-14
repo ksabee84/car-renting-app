@@ -135,31 +135,21 @@ app.post('/api/v1/car-renting/cars', (req, res) => {
     res.status(200).send('Car has been added!');
 });
 
-// autó módosítása (nem akarja kiválasztani)
+// autó módosítása:
 app.put('/api/v1/car-renting/cars/:id', (req, res) => {
-    // checkDetailsOfRequest({ req, res });
-    // const index = getCar({ id: req.params.id });
-
     const { car, index } = checkDetailsOfRequest({ req, res, newCar: false });
 
     rentableCars[index] = {
-        ...car,
+        ...rentableCars[index],
         ...req.body,
     };
    
     res.status(200).send('Car was updated successfully!');
 });
 
-// autó törlése (nem akarja kiválasztani)
+// autó törlése:
 app.delete('/api/v1/car-renting/cars/:id', (req, res) => {
-    console.log('backend: ', req.params.id)
-
-    // checkDetailsOfRequest({ req, res });
-    // const index = getCar({ id: req.params.id })
-
     const { index } = checkDetailsOfRequest({ req, res, newCar: false });
-
-    console.log('check details passed');
 
     rentableCars.splice(index, 1);
     
@@ -179,7 +169,7 @@ app.get('/api/v1/car-renting/cars/search', (req, res) => {
 });
 
 const checkDetailsOfRequest = ({ req, res, newCar }) => {
-    const car = rentableCars.find((car) => car.id === req.params.id);
+    const car = rentableCars.find((car) => car.id === parseInt(req.params.id));
     const index = car && rentableCars.indexOf(car);
 
     if(!newCar) {
@@ -194,13 +184,6 @@ const checkDetailsOfRequest = ({ req, res, newCar }) => {
     
     return { car, index };
 };
-
-/*
-function getCar({ id }) {
-    const car = rentableCars.find((car) => car.id === parseInt(id));
-    return rentableCars.indexOf(car);
-}
-*/
 
 function isSearchKeyCorrect({ searchKey }) {
     const correctValue = "name";

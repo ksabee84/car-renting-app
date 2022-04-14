@@ -2,11 +2,10 @@ import React from "react";
 import Container from '@mui/material/Container';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+
+const rentableCars=[];
 
 const CarSelectElement = () => {
-
-    const rentableCars=[];
 
     return (
         <Container className='autocompleteDiv'>
@@ -14,15 +13,12 @@ const CarSelectElement = () => {
             <Autocomplete className='autocompleteCars'
                 disablePortal
                 id="combo-box-demo"
-                options={rentableCars}
+                options={ rentableCars }
                 sx={{ width: 400 }}
                 renderInput={(params) =>
-                <TextField {...params} label="carName" />}
+                <TextField {...params} label="Selected Car" />}
             />
-
-            <Button size='large' variant='contained'>
-                Register and Rent
-            </Button>
+            
         </Container>
     )
 }

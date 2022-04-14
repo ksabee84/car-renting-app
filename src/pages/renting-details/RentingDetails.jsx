@@ -1,9 +1,10 @@
 import React from 'react';
 import CarRentingMenuElement from '../../components/CarRentingMenuElement';
-import StepperElement from '../../components/StepperElement';
-import RegistrationFormElement from '../../components/RegistrationFormElement';
-import './renting-details.css';
 import CarSelectElement from '../../components/CarSelectElement';
+import RegistrationFormElement from '../../components/RegistrationFormElement';
+// import StepperElement from '../../components/StepperElement';
+import './renting-details.css';
+
 
 const RentingDetails = () => {
 
@@ -11,12 +12,10 @@ const RentingDetails = () => {
         <div className='formDiv'>
             <CarRentingMenuElement />
 
-            <StepperElement />
-
-            <div className='registrationForm'>
-                <RegistrationFormElement />
-            </div>
             <CarSelectElement />
+
+            <RegistrationFormElement />
+            
         </div>
     );
 }

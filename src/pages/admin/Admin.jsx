@@ -3,6 +3,7 @@ import CarRentingMenuElement from "../../components/CarRentingMenuElement";
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import EditableTable from '../../components/EditableTable';
+import { DataGrid } from '@mui/x-data-grid';
 import './admin.css';
 // import Box from '@mui/material/Box';
 // import RentingCardElement from '../../components/RentingCardElement';
@@ -29,13 +30,14 @@ import './admin.css';
                     />
                 }
         </Box>
-    */
+*/
 
 const AdminInterface = () => {
 
     const [rentableCars, setRentableCars] = useState([]);
     const [selectedCar, setSelectedCar] = useState({});
-    const [selectedIndex, setSelectedIndex] = useState();
+    const [isRenderDetail, setIsRenderDetail] = useState(false);
+    const [selectedIndex, setSelectedIndex] = useState(1);
     const [container, setContainer] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const customEventType = 'errorOccured';
@@ -45,7 +47,8 @@ const AdminInterface = () => {
         container && container.addEventListener(customEventType, (e) => {
             setErrorMessage(e.detail.errorMessage);
         }, {});
-    }, [container]);
+        selectedCar.id && setIsRenderDetail(true);
+    }, [container, selectedCar]);
 
     const fetchCars = () => {
         fetch('http://localhost:8080/api/v1/car-renting/cars')
@@ -79,7 +82,6 @@ const AdminInterface = () => {
             });
     };
 
-
     const updateCarData = async (body, id) => {
         const response = await fetch(`http://localhost:8080/api/v1/car-renting/cars/${id}`, {
             method: 'PUT',
@@ -89,26 +91,38 @@ const AdminInterface = () => {
             body: JSON.stringify(body),
         });
     };
-    
+
     const deleteCar = async (carId) => {
         const response = await fetch(`http://localhost:8080/api/v1/car-renting/cars/${carId}`, {
             method: 'DELETE',
             });
+            console.log('response is ', response);
 
-        if(response.status === '200') {
-            const car = rentableCars.find((car) => car.id === carId);
-            const index = rentableCars.indexOf(rentableCars);
-            const newCarArray = rentableCars.splice(index, 0);
+        if(response.status === 200) {
+            console.log('first step');
+
+            const car = rentableCars.find((car) => car.id === parseInt(carId));
+            const index = rentableCars.indexOf(car);
+            const newCarArray = [...rentableCars];
+            newCarArray.splice(index, 1);
             setRentableCars(newCarArray);
         }
     };
 
-
+    const [numberOfRows, setNumberOfRows] = useState(6);
+    
     const addNewCar = () => {
+        setNumberOfRows((x) => Math.min(100, x + 1));
+        console.log('adding message');
 
-    };
+        return(
+            <div style={{ width: '100%' }}>
+                <DataGrid autoHeight {...EditableTable} rows={EditableTable.rows.slice(0, numberOfRows)} />
+            </div>
+        );
+    }
 
-    const handleItemClick = (index) => {
+    const handleItemClick = (event, index) => {
         getCarById(index);
     }
 
@@ -116,9 +130,10 @@ const AdminInterface = () => {
         if(selectedCar) {
             return (
                 <EditableTable
-                rows={(rentableCars)}
+                rows={rentableCars}
                 edit={editSaved}
-                deleteElement={(e, params) => deleteCar(params.id)} />)
+                deleteElement={(e, params) => deleteCar(params.id)}
+                />)
         }
     }
 
@@ -143,13 +158,14 @@ const AdminInterface = () => {
                     className='carDataButtons'
                     size='big'
                     variant='contained'
-                    onClick={fetchCars}>
+                    onClick={ fetchCars }>
                         Show All Cars
                 </Button>
                 <Button
                     className='carDataButtons'
                     size='big'
                     variant='contained'
+                    onClick={ deleteCar }
                     >
                         Delete Car
                 </Button>
@@ -157,7 +173,7 @@ const AdminInterface = () => {
                     className='carDataButtons'
                     size='big'
                     variant='contained'
-                    onClick={addNewCar}
+                    onClick={ addNewCar }
                     >
                         Add New Car
                 </Button>
@@ -165,12 +181,14 @@ const AdminInterface = () => {
                     className='carDataButtons'
                     size='big'
                     variant='contained'
-                    onClick={editSaved}
+                    onClick={ editSaved }
                     >
                         Save Car Data
                 </Button>
             </Container>
-
+            { 
+                isRenderDetail && detailedRendering()
+            }
             <EditableTable
                 rows={rentableCars}
                 edit={editSaved}
@@ -180,6 +198,5 @@ const AdminInterface = () => {
         </div>
     );
 };
-
 
 export default AdminInterface;
