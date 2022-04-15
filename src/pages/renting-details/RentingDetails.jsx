@@ -15,7 +15,6 @@ const RentingDetails = () => {
             <CarSelectElement />
 
             <RegistrationFormElement />
-            
         </div>
     );
 }

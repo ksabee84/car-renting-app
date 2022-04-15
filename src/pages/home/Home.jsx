@@ -23,9 +23,11 @@ const Home = () => {
                     <Typography gutterBottom variant='h3' component='div' className='title'>
                         Exclusive Car Renting
                     </Typography>
-                    <Typography color='text.secondary' className='lead'>
-                        <p>Do you like unique cars and driving?</p>
-                        <p>You can do it with us! Rent your dream car now!</p>
+                    <Typography color='text.secondary' variant='h6' component='p' className='lead'>
+                        Do you like unique cars and driving?
+                    </Typography>
+                    <Typography color='text.secondary' variant='h6' component='p' className='lead'>
+                        You can do it with us! Rent your dream car now!
                     </Typography>
                 </CardContent>
                 <CardActions className='landingPageCardActions'>
@@ -33,6 +35,9 @@ const Home = () => {
                         <Link to='/car-renting' className='link'>Click To Rent</Link>
                     </Button>
                 </CardActions>
+                <Typography color='text.secondary' variant='h6' component='p' className='lead'>
+                    &#169; 2022
+                </Typography>   
             </Card>
         </div>
     );

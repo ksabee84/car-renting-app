@@ -32,9 +32,9 @@ const RentingCardElement = () => {
 
   // setTimeout(() => console.log('cars', rentableCars), 5000);
 
-  const car = (id) => (
-      rentableCarsData.find((car) => car.id === id)
-  );
+  const car = (id) => {
+      rentableCarsData.find((car) => car.id === parseInt(id));
+  };
 
   const handleItemClick = (event, index) => {
       setSelectedIndex(index);

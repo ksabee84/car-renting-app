@@ -15,25 +15,18 @@
     font-size: 1.1rem;
 }
 
-/*
-.formDiv > .stepper {
-    margin-top: 50px;
-}
-*/
-
 .formDiv > .formBox {
     margin-top: 20px;
     text-align: center;
 }
 
-.formDiv > .formBox > .autocompleteDiv {
+.formDiv > .formBox > .regBtn {
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.formDiv > .button {
-    margin-bottom: 50px;
-}
-
-.formDiv > .button > .link {
-    text-decoration-line: none;
+.formDiv > .carSelect {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

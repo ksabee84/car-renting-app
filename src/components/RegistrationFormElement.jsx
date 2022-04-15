@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import CarSelectElement from './CarSelectElement';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import RegisterSuccess from '../components/RegisterSuccess';
@@ -12,7 +11,6 @@ const RegistrationFormElement = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [formValue, setFormValue] = useState();
 
     const onNameValueChange = (e) => {
         setName(e.target.value);
@@ -42,33 +40,34 @@ const RegistrationFormElement = () => {
     const lowerCaseChars = /[a-z]/g ;
     const upperCaseChars = /[A-Z]/g;
     const numbers = /[0-9]/g;
+    let formValue;
 
     const checkValues = () => {
-        
 
             if(!email.includes('@', '.')) {
                 formValue = false;
                 alert('Enter a valid e-mail address!');
-            } else if(password.length < 8) {
+            }
+
+            if(password.length < 8) {
                 formValue = false;
                 alert('Password must be at least 8 characters long!');
-            } else if(password.length > 30) {
+            }
+            
+            if(password.length > 30) {
                 formValue = false;
                 alert('Password cannot be longer than 30 characters!');
-            } else if(!password.match(lowerCaseChars, upperCaseChars, numbers)) {
+            }
+
+            if(!password.match(lowerCaseChars, upperCaseChars, numbers)) {
                 formValue = false;
                 alert('Password must contain at least one lower case and one upper case letter, and one number!');
-            } else if(!phoneNumber.match(numbers, '-', '+')) {
+            }
+            
+            if(!phoneNumber.match(numbers, '-', '+')) {
                 formValue = false;
                 alert(`Phone number must contain numbers, and may contain '+' or '-' characters!`);
-            } else {
-                console.log('checked');
-                return (
-                    <div>
-                        <RegisterSuccess />
-                    </div>
-                )
-            }
+            }       
     };
 
     return(
@@ -81,9 +80,6 @@ const RegistrationFormElement = () => {
                 noValidate
                 autoComplete="off"
                 >
-        <div>
-            <CarSelectElement />
-        </div>
                     <TextField
                         required
                         id="demo-helper-text-misaligned-no-helper"
@@ -120,7 +116,7 @@ const RegistrationFormElement = () => {
                         helperText=""
                         onChange={ onPhoneNumberChange }
                     />
-                <div>
+                <div className='regBtn'>
                     <Button
                         size='large'
                         variant='contained'
