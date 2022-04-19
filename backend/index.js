@@ -98,19 +98,17 @@ app.get('/api/v1/car-renting/port', (req, res) => {
     res.status(200).send(`App is running on this port: ${appPort}`);
 });
 
-// összes autó lekérése:
+// query of all cars:
 app.get('/api/v1/car-renting/cars', (req, res) => {
-    // checkDetailsOfRequest({ req, res });
-
     res.status(200).send(rentableCars);
 });
 
-// bérelhető autók lekérése:
+// query of rentable cars:
 app.get('/api/v1/car-renting/cars/rentable', (req, res) => {
     res.status(200).send(rentableCars.filter((car) => !car.isRented));
 });
 
-// autó lekérése id alapján:
+// selecting a car by ID:
 app.get('/api/v1/car-renting/cars/:id', (req, res) => {
     const car = rentableCars.find((car) => car.id === parseInt(req.params.id));
     car
@@ -121,7 +119,7 @@ app.get('/api/v1/car-renting/cars/:id', (req, res) => {
     });
 });
 
-// autó hozzáadása:
+// adding a new car:
 app.post('/api/v1/car-renting/cars', (req, res) => {
     checkDetailsOfRequest({ req, res, newCar: true });
 
@@ -135,7 +133,7 @@ app.post('/api/v1/car-renting/cars', (req, res) => {
     res.status(200).send('Car has been added!');
 });
 
-// autó módosítása:
+// updating a car:
 app.put('/api/v1/car-renting/cars/:id', (req, res) => {
     const { car, index } = checkDetailsOfRequest({ req, res, newCar: false });
 
@@ -147,7 +145,7 @@ app.put('/api/v1/car-renting/cars/:id', (req, res) => {
     res.status(200).send('Car was updated successfully!');
 });
 
-// autó törlése:
+// deleting a car:
 app.delete('/api/v1/car-renting/cars/:id', (req, res) => {
     const { index } = checkDetailsOfRequest({ req, res, newCar: false });
 
@@ -156,7 +154,7 @@ app.delete('/api/v1/car-renting/cars/:id', (req, res) => {
     res.status(200).send(`Car with id ${req.params.id} was deleted successfully!`);
 });
 
-// keresés típus alapján (még nincs kipróbálva)
+// query by type (not used yet):
 app.get('/api/v1/car-renting/cars/search', (req, res) => {
     const queryKey = Object.keys(req.query);
     checkDetailsOfRequest({ req, res });
@@ -185,9 +183,11 @@ const checkDetailsOfRequest = ({ req, res, newCar }) => {
     return { car, index };
 };
 
+/*
 function isSearchKeyCorrect({ searchKey }) {
     const correctValue = "name";
     return correctValue === searchKey;
 }
+*/
 
 app.listen(appPort, () => console.log(`App is listening on port ${appPort}`));

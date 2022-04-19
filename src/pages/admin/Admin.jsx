@@ -5,32 +5,6 @@ import Button from '@mui/material/Button';
 import EditableTable from '../../components/EditableTable';
 import { DataGrid } from '@mui/x-data-grid';
 import './admin.css';
-// import Box from '@mui/material/Box';
-// import RentingCardElement from '../../components/RentingCardElement';
-// import List from '@mui/material/List';
-// import { ListItemButton, ListItemText } from "@mui/material";
-
-/*
-        <Box sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
-            <List component='nav' aria-label="main mailbox folders">
-                {
-                    rentableCars.length > 0 && rentableCars.map((car) => (
-                        <ListItemButton
-                        selected={selectedIndex === car.id}
-                        key={car.carName}
-                        >
-                            <ListItemText primary={car.carName} key={car.carName} />
-                        </ListItemButton>
-                    ))
-                }
-            </List>
-                { selectedIndex 
-                && <RentingCardElement
-                    {...car(selectedIndex)}
-                    />
-                }
-        </Box>
-*/
 
 const AdminInterface = () => {
 
@@ -42,6 +16,7 @@ const AdminInterface = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const customEventType = 'errorOccured';
 
+    /*
     useEffect(() => {
         setContainer(document.getElementById('editableTable'));
         container && container.addEventListener(customEventType, (e) => {
@@ -49,6 +24,7 @@ const AdminInterface = () => {
         }, {});
         selectedCar.id && setIsRenderDetail(true);
     }, [container, selectedCar]);
+    */
 
     const fetchCars = () => {
         fetch('http://localhost:8080/api/v1/car-renting/cars')
@@ -78,7 +54,7 @@ const AdminInterface = () => {
             }
         })
             .catch((error) => {
-                console.log('error message', error);
+                console.log('error message: ', error);
             });
     };
 
@@ -96,11 +72,9 @@ const AdminInterface = () => {
         const response = await fetch(`http://localhost:8080/api/v1/car-renting/cars/${carId}`, {
             method: 'DELETE',
             });
-            console.log('response is ', response);
+            console.log('response is: ', response);
 
         if(response.status === 200) {
-            console.log('first step');
-
             const car = rentableCars.find((car) => car.id === parseInt(carId));
             const index = rentableCars.indexOf(car);
             const newCarArray = [...rentableCars];
@@ -122,9 +96,11 @@ const AdminInterface = () => {
         );
     }
 
+    /*
     const handleItemClick = (event, index) => {
         getCarById(index);
     }
+    */
 
     const detailedRendering = () => {
         if(selectedCar) {
@@ -143,6 +119,7 @@ const AdminInterface = () => {
         const requestBody = {
             [valueChange.field]: valueChange.value,
         };
+
         updateCarData(requestBody, valueChange.id);
         
         console.log('clicked', valueChange.id, valueChange.value);
@@ -161,14 +138,7 @@ const AdminInterface = () => {
                     onClick={ fetchCars }>
                         Show All Cars
                 </Button>
-                <Button
-                    className='carDataButtons'
-                    size='big'
-                    variant='contained'
-                    onClick={ deleteCar }
-                    >
-                        Delete Car
-                </Button>
+
                 <Button
                     className='carDataButtons'
                     size='big'
@@ -192,9 +162,8 @@ const AdminInterface = () => {
             <EditableTable
                 rows={rentableCars}
                 edit={editSaved}
-                deleteElement={(e, params) => console.log('params id: ', params.id)}
+                deleteElement={(e, params) => deleteCar(params.id).then( () => {fetchCars()})}
                 id='editableTable'/>
-            
         </div>
     );
 };

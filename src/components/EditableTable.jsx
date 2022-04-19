@@ -1,6 +1,5 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-
 import Button from '@mui/material/Button';
 
 const EditableTable = ({ rows, edit, deleteElement } ) => 
@@ -10,18 +9,6 @@ const EditableTable = ({ rows, edit, deleteElement } ) =>
                 />
         </div>
     );
-/*
-    const [rows, setRows] = useState(columns);
-
-    const deleteCar = useCallback(
-        (id) => () => {
-          setTimeout(() => {
-            setRows((prevRows) => prevRows.filter((row) => row.id !== id));
-          });
-        },
-        [],
-      );
-    */
 
     const columns = (deleteElement) => {
         return [

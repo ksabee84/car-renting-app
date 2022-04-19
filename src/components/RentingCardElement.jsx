@@ -81,11 +81,11 @@ const RentingCardElement = () => {
                 </Typography>
               </AccordionDetails>
             </Accordion>
-            <CardActions className="carsCardActions">
+            <CardActions className='carsCardActions'>
               <Button
                 size='large'
                 variant='contained'
-                className="carsButton"
+                className='carsButton'
                 selected={selectedIndex === car.id}
                 onClick={(e) => handleItemClick(e, car.id)}
                 key={car.carName}>
