@@ -86,7 +86,7 @@ const RentingCardElement = () => {
                 size='large'
                 variant='contained'
                 className='carsButton'
-                selected={selectedIndex === car.id}
+                selected={selectedIndex === parseInt(car.id)}
                 onClick={(e) => handleItemClick(e, car.id)}
                 key={car.carName}>
                 <Link to='/renting-details' className='linkToRegister'>

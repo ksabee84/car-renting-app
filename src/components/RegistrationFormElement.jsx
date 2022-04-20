@@ -121,16 +121,16 @@ const RegistrationFormElement = () => {
                         required
                         type="password"
                         id="outlined-password-input"
-                        label="Please enter a password"
-                        helperText=""
+                        label="Password"
+                        helperText="Password must contain at least 2 uppercase letters, 2 lowercase letters and numbers"
                         autoComplete="current-password"
                         onChange={ onPasswordChange }
                     />
                     <TextField
                         required
                         id="demo-helper-text-misaligned-no-helper"
-                        label="Please enter your phone number"
-                        helperText=""
+                        label="Phone number"
+                        helperText="Please enter your phone number. Only numbers / + / - accepted"
                         onChange={ onPhoneNumberChange }
                     />
                 <div className='regBtn'>
