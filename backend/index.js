@@ -71,7 +71,7 @@ const rentableCars = [
         color: 'grey',
         engine: 'inline-4, 1779cc, 116hp',
         VIN: 'AR147233',
-        isRented: true,
+        isRented: false,
         imgText: `Buongiorno! Wanna have a retro Italian feeling? Try this real classic '69 Alfa!`,
         imgUrl: '/img/alfaspider.jpg',
         imgAlt: 'A grey Alfa Romeo 1750 Spider car',
@@ -90,6 +90,34 @@ const rentableCars = [
         imgUrl: '/img/trabant601.JPG',
         imgAlt: 'A green Trabant 601 car',
         rentingPrice: 100
+      },
+      {
+        id: 7,
+        carName: 'Polski Fiat 126p',
+        carBrandAndModel: 'Polski Fiat 126p 650',
+        modelYear: '1973',
+        color: 'white',
+        engine: 'inline-2, 594cc, 23hp',
+        VIN: '4104346',
+        isRented: false,
+        imgText: `Try driving one of Poland's cultural icons, the Maluch (Toddler)!`,
+        imgUrl: '/img/polski126p.JPG',
+        imgAlt: 'A white Polksi Fiat 126p car',
+        rentingPrice: 100
+      },
+      {
+        id: 8,
+        carName: 'Volkswagen T2',
+        carBrandAndModel: 'Volkswagen T2 hippie bus',
+        modelYear: '1977',
+        color: 'yellow',
+        engine: 'boxer-4, 1584cc, 50hp',
+        VIN: '2172312345',
+        isRented: false,
+        imgText: `Do you like hippies? Wanna recall the Woodstock era? The Flower Power calls you! Don't miss this T2 VW!!`,
+        imgUrl: '/img/vw_t2.JPG',
+        imgAlt: 'A yellow Volkswagen T2 hippie bus with white stickers',
+        rentingPrice: 200
       }
 
 ];

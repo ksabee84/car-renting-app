@@ -11,6 +11,7 @@ const RegistrationFormElement = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [showSuccessMsg, setShowSuccessMsg] = useState(false);
 
     const onNameValueChange = (e) => {
         setName(e.target.value);
@@ -67,8 +68,22 @@ const RegistrationFormElement = () => {
             if(!phoneNumber.match(numbers, '-', '+')) {
                 formValue = false;
                 alert(`Phone number must contain numbers, and may contain '+' or '-' characters!`);
-            }       
+            }
+            
+            console.log('registered');
     };
+
+    const successfulReg = () => {
+        setShowSuccessMsg(true);
+
+        return(
+            <div>
+                { showSuccessMsg ? <RegisterSuccess /> : null }
+            </div>
+        );
+    };
+
+    // ReactDOM.render(<RegisterSuccess />, document.querySelector('#formBox'));
 
     return(
         <>
@@ -79,25 +94,27 @@ const RegistrationFormElement = () => {
                 }}
                 noValidate
                 autoComplete="off"
+                id='formBox'
                 >
                     <TextField
                         required
                         id="demo-helper-text-misaligned-no-helper"
-                        label="Please enter your name"
+                        label="Your Name"
+                        helperText="Please enter your name"
                         onChange={ onNameValueChange }
                     />
                     <TextField className='userName'
                         required
                         id="demo-helper-text-misaligned-no-helper"
-                        label="Please enter a username"
-                        helperText=""
+                        label="Username"
+                        helperText="Please enter a username"
                         onChange={ onUsernameValueChange }
                     />
                     <TextField
                         required
                         id="demo-helper-text-misaligned-no-helper"
-                        label="Please enter an e-mail address"
-                        helperText=""
+                        label="E-mail"
+                        helperText="Please enter an e-mail address"
                         onChange={ onEmailValueChange }
                     />
                     <TextField
@@ -120,11 +137,10 @@ const RegistrationFormElement = () => {
                     <Button
                         size='large'
                         variant='contained'
-                        onClick={ checkValues }>
+                        onClick={() => { checkValues(); successfulReg(); } }>
                             Register and Rent
                     </Button>
                 </div>
-                    { formValue && <RegisterSuccess /> }
             </Box>
         </>
     )
